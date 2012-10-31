@@ -1,0 +1,6 @@
+SyncServiceLib/obj/*
+Client/obj/*
+tools/SyncSvcUtil/obj/*
+tools/SyncSvcUtilUI/obj/*
+*.suo
+_Resharper*
