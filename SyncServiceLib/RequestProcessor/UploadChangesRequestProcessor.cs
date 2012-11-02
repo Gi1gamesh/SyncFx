@@ -381,12 +381,15 @@ namespace Microsoft.Synchronization.Services
             foreach (var entity in _incomingEntities)
             {
                 string primaryKey = ReflectionUtility.GetPrimaryKeyString(entity);
-                if (primaryKeyToIncomingEntitiesMapping.ContainsKey(primaryKey))
+                string entityType = entity.GetType().ToString();
+                string key = entityType + ":" + primaryKey;
+
+                if (primaryKeyToIncomingEntitiesMapping.ContainsKey(key))
                 {
                     throw SyncServiceException.CreateInternalServerError(Strings.MultipleEntriesWithSamePrimaryKeyInIncomingRequest);
                 }
 
-                primaryKeyToIncomingEntitiesMapping.Add(primaryKey, entity);
+                primaryKeyToIncomingEntitiesMapping.Add(key, entity);
             }
 
             if (_rejectedEntities != null)
@@ -394,12 +397,15 @@ namespace Microsoft.Synchronization.Services
                 foreach (var entity in _rejectedEntities.Keys)
                 {
                     string primaryKey = ReflectionUtility.GetPrimaryKeyString(entity);
-                    if (primaryKeyToIncomingEntitiesMapping.ContainsKey(primaryKey))
+                    string entityType = entity.GetType().ToString();
+                    string key = entityType + ":" + primaryKey;
+
+                    if (primaryKeyToIncomingEntitiesMapping.ContainsKey(key))
                     {
                         throw SyncServiceException.CreateInternalServerError(Strings.MultipleEntriesWithSamePrimaryKeyInIncomingRequest);
                     }
 
-                    primaryKeyToIncomingEntitiesMapping.Add(primaryKey, entity);
+                    primaryKeyToIncomingEntitiesMapping.Add(key, entity);
                 }
             }
 

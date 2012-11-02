@@ -126,9 +126,10 @@ namespace Microsoft.Synchronization.Services.Formatters
         /// <returns>String representation of the primary key</returns>
         public static string GetPrimaryKeyString(IOfflineEntity live)
         {
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
 
             string sep = string.Empty;
+
             foreach (PropertyInfo keyInfo in ReflectionUtility.GetPrimaryKeysPropertyInfoMapping(live.GetType()))
             {
                 if (keyInfo.PropertyType == FormatterConstants.GuidType)
